@@ -3,7 +3,7 @@ const path = require("path");
 const fs = require("fs");
 const Engineer = require("./lib/Engineer");
 const htmlRenderer = require("./lib/htmlRenderer");
-console.dir(htmlRenderer);
+const Manager = require("./lib/Manager");
 var employees = [];
 
 async function start() {
@@ -70,8 +70,23 @@ async function createEmployee({ name, id, email, role }) {
       ]);
 
     console.log("creating engineer");
-    const engineer = new Engineer(name, id, email, role, github);
+    const engineer = new Engineer(name, id, email, role, github.github);
     employees.push(engineer);
+  }
+  else if (role === "Manager") {
+    const officeNumber = await inquirer
+      .prompt([
+        {
+          type: "input",
+          message: "Enter Office Number",
+          name: "officeNumber"
+        }
+      ]);
+    
+    console.log(officeNumber);
+    
+    const manager = new Manager(name, id, email, role, officeNumber.officeNumber);
+    employees.push(manager);
   }
 }
 
