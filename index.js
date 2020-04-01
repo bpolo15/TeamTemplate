@@ -4,6 +4,7 @@ const fs = require("fs");
 const Engineer = require("./lib/Engineer");
 const htmlRenderer = require("./lib/htmlRenderer");
 const Manager = require("./lib/Manager");
+const Intern = require("./lib/Intern");
 var employees = [];
 
 async function start() {
@@ -33,22 +34,22 @@ async function start() {
       },
       {
         type: "input",
-        message: "Please enter the Employee's name: ",
+        message: "Please enter the Employee's name:",
         name: "name"
       },
       {
         type: "input",
-        message: "Please enter Employee ID: ",
+        message: "Please enter Employee ID:",
         name: "id"
       },
       {
         type: "input",
-        message: "Please enter Employee Email: ",
+        message: "Please enter Employee Email:",
         name: "email"
       },
       {
         type: "list",
-        message: "Please select role: ",
+        message: "Please select role:",
         choices: ["Manager", "Engineer", "Intern"],
         name: "role"
       }
@@ -64,7 +65,7 @@ async function createEmployee({ name, id, email, role }) {
       .prompt([
         {
           type: "input",
-          message: "Enter employee Github",
+          message: "Enter employee Github:",
           name: "github"
         }
       ]);
@@ -78,7 +79,7 @@ async function createEmployee({ name, id, email, role }) {
       .prompt([
         {
           type: "input",
-          message: "Enter Office Number",
+          message: "Enter Office Number:",
           name: "officeNumber"
         }
       ]);
@@ -87,6 +88,21 @@ async function createEmployee({ name, id, email, role }) {
     
     const manager = new Manager(name, id, email, role, officeNumber.officeNumber);
     employees.push(manager);
+  }
+  else if (role === "Intern") {
+    const school = await inquirer
+      .prompt([
+        {
+          type: "input",
+          message: "Enter School Name:",
+          name: "school"
+        }
+      ]);
+    
+    
+    
+    const intern = new Intern(name, id, email, role, school.school);
+    employees.push(intern);
   }
 }
 
